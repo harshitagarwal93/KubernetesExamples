@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: hr
+  name: mydaemonset
+  labels:
+    daemonsetname: mydaemonset
+spec:
+  template:
+    metadata:
+      name: daemonpod
+      namespace: hr
+      labels:
+        podname: daemonpod
+    spec:
+      containers:
+      - name: containerone
+        image: nginx
+        ports:
+        - containerPort: 80
+  selector:
+    matchLabels:
+      podname: daemonpod
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1

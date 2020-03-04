@@ -1,0 +1,31 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  namespace: hr
+  name: mycronjob
+  labels:
+    jobName: mycronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:      
+    metadata:
+      name: myjobpod
+      labels:
+        podname: myjobpod
+    spec:
+      parallelism: 2
+      completions: 4
+      template:      
+        metadata:
+          name: myjobpod
+          labels:
+            podname: myjobpod
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: containerone
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - echo "started..."; sleep20; echo "giong to die..";

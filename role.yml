@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: one
+  name: podreader
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["list", "read"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: one
+  name: podreaderbinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: podreader
+subjects:
+- apiGroup: ""
+  kind: ServiceAccount
+  name: default
+- apiGroup: ""
+  kind: ServiceAccount
+  name: default
+  namespace: two

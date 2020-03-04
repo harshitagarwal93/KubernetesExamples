@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configvolumepod
+  labels:
+    servicetype: nodeportpod
+spec:
+  containers:
+  - name: mycontainer
+    image: busybox
+    args:
+    - /bin/sh
+    - -c
+    - while true; do echo "message from pod"; echo $(myenvvar); sleep 5; done
+    envFrom:
+    - configMapRef:
+        name: firstconfigmap
+    volumeMounts:
+    - name: myconfigvolume
+      mountPath: /testvolume
+  volumes:
+  - name: myconfigvolume
+    configMap:
+      name: firstconfigmap

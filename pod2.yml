@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podcertain1
+  labels:
+    abra: dabra123
+spec:
+  containers:
+  - name: containercertain1
+    image: acrpoc123.azurecr.io/dockerimage:v2
+    ports:
+    - containerPort: 80
+      protocol: TCP
+      name: http
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+  nodeSelector:
+      kubernetes.io/hostname: aks-nodepool1-19553425-vmss000000
+  

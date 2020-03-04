@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: hr
+  name: myjob
+  labels:
+    jobName: myjob
+spec:
+  parallelism: 2
+  completions: 4
+  template:      
+    metadata:
+      name: myjobpod
+      labels:
+        podname: myjobpod
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: containerone
+        image: busybox
+        args:
+        - /bin/sh
+        - -c
+        - echo "started..."; sleep20; echo "giong to die..";
+  # selector:
+  #   matchLabels:
+  #     podname: myjobpod

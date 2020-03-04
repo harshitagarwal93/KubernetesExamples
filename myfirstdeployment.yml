@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfirstdeployment
+  labels:
+    name: myfirstdeployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: mydeploymentpod
+  template:
+    metadata:
+      name: mydeploymentpod
+      labels:
+        name: mydeploymentpod
+    spec:
+      containers:
+      - name: firstcontainer
+        image: nginx
+        ports:
+        - containerPort: 8080

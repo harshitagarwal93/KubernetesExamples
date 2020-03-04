@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp10deployment
+  labels:
+    version: v1
+    appName: webapplication10
+spec:
+  replicas: 5
+  template:
+    metadata:
+      name: webapp10pods
+      labels:
+        version: v1
+        appname: financev1
+    spec:
+      containers:
+      - name: containerone
+        image: acrpoc123.azurecr.io/dockerimage:v2
+        ports:
+        - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      version: v1
+      appname: financev1

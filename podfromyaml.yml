@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: podfromyaml
+spec:
+  containers:
+  - name: firstcontainer
+    image: nginx
+    ports:
+    - containerPort: 80
+  - name: secondcontainer
+    image: busybox
+    args:
+    - /bin/sh
+    - -c
+    - while true; do echo "Harshit"; sleep 5; done
